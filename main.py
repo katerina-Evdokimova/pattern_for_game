@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+from board import Board
+
 import pygame_widgets # pip install pygame_widgets
 from pygame_widgets.button import Button
 
@@ -13,7 +15,9 @@ def game():
     infoObject = pygame.display.Info()
     w, h = infoObject.current_w, infoObject.current_h
     screen = pygame.display.set_mode((w, h))
-
+    size_board = 70
+    board = Board(w // size_board, h // size_board)
+    board.set_view(10, 10, size_board)
     running = True    
     while running:
         screen.fill(pygame.Color('#4cbb17'))
@@ -23,6 +27,9 @@ def game():
             if event.type == pygame.QUIT:
                 running = False
                 terminate()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                board.get_click(event.pos)
+        board.render(screen)
         pygame.display.flip()
     pygame.quit()
 
