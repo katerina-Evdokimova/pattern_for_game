@@ -1,6 +1,6 @@
 import pygame
 import sys
-from sprites import TestSprite
+from sprites import TestSprite, load_image
 from board import Board
 
 import pygame_widgets # pip install pygame_widgets
@@ -72,7 +72,7 @@ def game_sprite():
 
   
 def start_window():
-
+    fon = load_image('background.jpg')
     # размеры игрового экрана
     # size = w, h = 600, 600
     # screen = pygame.display.set_mode(size)
@@ -81,10 +81,10 @@ def start_window():
     infoObject = pygame.display.Info()
     w, h = infoObject.current_w, infoObject.current_h
     screen = pygame.display.set_mode((w, h))
-
+    fon = pygame.transform.scale(fon, (w, h))
     # задаем размеры основных кнопок (в процентах относительно экрана, в примере, 20% и 10%)
     w_button, h_button = 0.2 * w, 0.1 * h
-
+    screen.blit(fon, (0, 0))
     # Создание кнопки без изображения:
     button_exit = Button(
         # обязательные параметры
@@ -146,7 +146,7 @@ def start_window():
 
     running = True    
     while running:
-        screen.fill(pygame.Color('#ffcc00'))
+        # screen.fill(pygame.Color('#ffcc00'))
 
         for event in pygame.event.get():
             # программа завершается, когда произошло нажатие на крестик
